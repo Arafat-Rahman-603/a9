@@ -235,7 +235,7 @@ export default function MyTutors() {
                   <input type="text" name="availableDays" defaultValue={selectedTutor.availableDays} className="input input-bordered w-full rounded-xl bg-base-200/50" required />
                 </div>
                 <div className="form-control">
-                  <label className="label"><span className="label-text text-xs font-bold uppercase tracking-wider text-base-content/70">Hourly Fee ($)</span></label>
+                  <label className="label"><span className="label-text text-xs font-bold uppercase tracking-wider text-base-content/70">Hourly Fee (BDT)</span></label>
                   <input type="number" name="hourlyFee" min="1" step="0.01" defaultValue={selectedTutor.hourlyFee} className="input input-bordered w-full rounded-xl bg-base-200/50" required />
                 </div>
                 <div className="form-control">

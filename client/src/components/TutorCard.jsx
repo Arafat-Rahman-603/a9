@@ -26,7 +26,7 @@ export default function TutorCard({
         <div className="space-y-2 mb-4 text-sm flex-grow">
           <div className="flex justify-between border-b border-base-200 pb-2">
             <span className="font-semibold opacity-80">Hourly Fee:</span>
-            <span className="font-bold text-primary">${tutor.hourlyFee}</span>
+            <span className="font-bold text-primary">Tk {tutor.hourlyFee}</span>
           </div>
           <div className="flex justify-between border-b border-base-200 pb-2">
             <span className="font-semibold opacity-80">Slots Available:</span>
