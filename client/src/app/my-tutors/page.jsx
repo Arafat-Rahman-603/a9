@@ -150,7 +150,7 @@ export default function MyTutors() {
                       </td>
                       <td className="py-4">
                         <div className="badge badge-ghost badge-sm font-semibold mb-1 border-base-content/20">{tutor.teachingMode}</div>
-                        <div className="font-bold text-base-content">${tutor.hourlyFee}/hr</div>
+                        <div className="font-bold text-base-content">TK {tutor.hourlyFee}/hr</div>
                       </td>
                       <td className="py-4 text-center">
                         <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl font-bold text-lg shadow-sm ${tutor.totalSlot > 0 ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400'}`}>
