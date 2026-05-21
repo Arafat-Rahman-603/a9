@@ -36,7 +36,7 @@ const createApp = () => {
   };
 
   app.use(cors(corsOptions));
-  app.options('*', cors(corsOptions));
+  app.options('*splat', cors(corsOptions));
 
   app.all('/api/auth/{*splat}', toNodeHandler(auth));
   app.use(express.json());
