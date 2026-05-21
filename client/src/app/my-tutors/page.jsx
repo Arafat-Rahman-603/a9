@@ -153,7 +153,7 @@ export default function MyTutors() {
                         <div className="font-bold text-base-content">TK {tutor.hourlyFee}/hr</div>
                       </td>
                       <td className="py-4 text-center">
-                        <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl font-bold text-lg shadow-sm ${tutor.totalSlot > 0 ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400'}`}>
+                        <div className={`inline-flex items-center justify-center w-fit h-10 px-2 rounded-xl font-bold text-lg shadow-sm ${tutor.totalSlot > 0 ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400'}`}>
                           {tutor.totalSlot}
                         </div>
                         <div className="text-[10px] text-base-content/50 uppercase font-bold mt-1 tracking-wider">Out of {tutor.initialSlot || 10}</div>
