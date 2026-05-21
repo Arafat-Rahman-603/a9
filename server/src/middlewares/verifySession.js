@@ -1,15 +1,20 @@
+import { getAuth, clerkClient } from '@clerk/express';
 import ApiError from '../utils/ApiError.js';
-export const makeVerifySession = auth => async (req, _res, next) => {
+
+export const makeVerifySession = () => async (req, _res, next) => {
   try {
-    const session = await auth.api.getSession({
-      headers: req.headers
-    });
-    if (!session) {
+    const auth = getAuth(req);
+    if (!auth || !auth.userId) {
       return next(new ApiError(401, 'Unauthorized — no active session'));
     }
-    req.user = session.user;
+    const user = await clerkClient.users.getUser(auth.userId);
+    req.user = {
+      id: auth.userId,
+      email: user.emailAddresses[0]?.emailAddress || '',
+      name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.username || 'User'
+    };
     next();
-  } catch {
+  } catch (error) {
     next(new ApiError(401, 'Unauthorized'));
   }
 };

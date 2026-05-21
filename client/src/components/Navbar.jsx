@@ -48,7 +48,7 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
   const user = session?.user;
-  const allLinks = user ? [...navLinks, ...privateLinks] : navLinks;
+  const allLinks = (mounted && user) ? [...navLinks, ...privateLinks] : navLinks;
   const handleSignOut = async () => {
     await signOut({
       fetchOptions: {
@@ -106,14 +106,17 @@ export default function Navbar() {
                 </AnimatePresence>
               </button>}
 
-            {isPending ? <div className="w-8 h-8 rounded-full bg-base-300 animate-pulse" /> : user ? <div className="dropdown dropdown-end">
+            {!mounted || isPending ? (
+              <div className="w-8 h-8 rounded-full bg-base-300 animate-pulse" />
+            ) : user ? (
+              <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="flex items-center gap-2 cursor-pointer px-2 py-1 rounded-xl hover:bg-base-content/5 transition-all duration-200">
                   <div className="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/30">
                     <img alt="avatar" src={user.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "U")}&background=6366f1&color=fff`} className="w-full h-full object-cover" />
                   </div>
                   <FaChevronDown className="text-xs text-base-content/50 hidden sm:block" />
                 </div>
-                <ul tabIndex={0} className="dropdown-content z-[100] mt-2 p-2 shadow-2xl glass-card border border-base-content/10 rounded-2xl w-52">
+                <ul tabIndex={0} className="dropdown-content z-[100] mt-2 p-2 shadow-2xl glass-card border border-base-content/10 rounded-2xl w-52 menu bg-base-100">
                   <li className="px-3 py-2">
                     <p className="font-semibold text-sm truncate">{user.name}</p>
                     <p className="text-xs text-base-content/50 truncate">{user.email}</p>
@@ -123,10 +126,13 @@ export default function Navbar() {
                   <div className="divider my-1 h-px bg-base-content/10" />
                   <li><button onClick={handleSignOut} className="w-full text-left px-3 py-2 rounded-xl text-sm text-error hover:bg-error/10 transition-all duration-200">Sign out</button></li>
                 </ul>
-              </div> : <div className="flex items-center gap-2">
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
                 <Link href="/login" className="px-4 py-1.5 text-sm font-medium text-base-content/70 hover:text-base-content transition-colors">Log in</Link>
                 <Link href="/register" className="px-4 py-1.5 text-sm font-semibold text-white rounded-xl gradient-bg btn-glow">Get Started</Link>
-              </div>}
+              </div>
+            )}
 
             <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden w-9 h-9 rounded-xl flex items-center justify-center hover:bg-base-content/10 transition-all duration-200">
               {mobileOpen ? <FaTimes /> : <FaBars />}

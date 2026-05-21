@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { toNodeHandler } from 'better-auth/node';
-import { createAuth } from './lib/auth.js';
+import { clerkMiddleware } from '@clerk/express';
 import { makeVerifySession } from './middlewares/verifySession.js';
 import registerRoutes from './routes/index.js';
 import notFound from './middlewares/notFound.js';
@@ -9,8 +8,7 @@ import errorHandler from './middlewares/errorHandler.js';
 
 const createApp = () => {
   const app = express();
-  const auth = createAuth();
-  const verifySession = makeVerifySession(auth);
+  const verifySession = makeVerifySession();
 
   const allowedOrigins = new Set(['http://localhost:3000']);
   if (process.env.CLIENT_URL) {
@@ -36,9 +34,9 @@ const createApp = () => {
   };
 
   app.use(cors(corsOptions));
-  app.options('*splat', cors(corsOptions));
+  app.options('/*splat', cors(corsOptions));
 
-  app.all('/api/auth/{*splat}', toNodeHandler(auth));
+  app.use(clerkMiddleware());
   app.use(express.json());
 
   app.get('/', (_req, res) => {
