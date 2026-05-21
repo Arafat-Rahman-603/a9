@@ -11,7 +11,7 @@ const createApp = () => {
   const auth = createAuth();
   const verifySession = makeVerifySession(auth);
   app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: "https://a9-cj6c.vercel.app" || 'https://a9-cj6c.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
