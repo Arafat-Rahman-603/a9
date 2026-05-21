@@ -10,8 +10,18 @@ const createApp = () => {
   const app = express();
   const auth = createAuth();
   const verifySession = makeVerifySession(auth);
+
+  const allowedOrigins = new Set(['http://localhost:3000']);
+  if (process.env.CLIENT_URL) {
+    process.env.CLIENT_URL.split(',').forEach(url => allowedOrigins.add(url.trim()));
+  }
+
   app.use(cors({
-    origin: "https://a9-cj6c.vercel.app" || 'https://a9-cj6c.vercel.app',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.has(origin)) return callback(null, true);
+      return callback(new Error(`CORS: origin '${origin}' not allowed`));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
