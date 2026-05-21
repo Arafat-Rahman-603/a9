@@ -60,7 +60,7 @@ export default function Navbar() {
     });
   };
   return <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass  shadow-lg shadow-black/10" : "bg-transparent"}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass border-b border-white/10 shadow-lg shadow-black/10" : "bg-transparent"}`}>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="w-8 h-8 rounded-xl gradient-bg flex items-center justify-center shadow-lg">
