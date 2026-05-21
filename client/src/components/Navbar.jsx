@@ -116,7 +116,7 @@ export default function Navbar() {
                   </div>
                   <FaChevronDown className="text-xs text-base-content/50 hidden sm:block" />
                 </div>
-                <ul tabIndex={0} className="dropdown-content z-[100] mt-2 p-2 shadow-2xl glass-card border border-base-content/10 rounded-2xl w-52 menu bg-base-100">
+                <ul tabIndex={0} className="dropdown-content z-[100] mt-2 p-2 shadow-2xl glass-card border border-base-content/20 rounded-2xl w-fit px-4 menu bg-base-100">
                   <li className="px-3 py-2">
                     <p className="font-semibold text-sm truncate">{user.name}</p>
                     <p className="text-xs text-base-content/50 truncate">{user.email}</p>
