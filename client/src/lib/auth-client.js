@@ -1,30 +1,52 @@
-import { useUser } from "@clerk/nextjs";
+import { createAuthClient } from "better-auth/react";
+
+const BETTER_AUTH_URL =
+  process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "http://localhost:3000";
+
+
+export const authClient = createAuthClient({
+  baseURL: BETTER_AUTH_URL,
+  fetchOptions: {
+    onSuccess: (ctx) => {
+
+      const token = ctx.response?.headers?.get("set-auth-token");
+      if (token && typeof window !== "undefined") {
+        localStorage.setItem("auth-token", token);
+      }
+    },
+  },
+});
+
 
 export function useSession() {
-  const { user, isLoaded, isSignedIn } = useUser();
-  if (!isLoaded) {
-    return { data: null, isPending: true };
-  }
-  if (!isSignedIn || !user) {
-    return { data: null, isPending: false };
-  }
+  const { data, isPending } = authClient.useSession();
+
+  if (isPending) return { data: null, isPending: true };
+  if (!data?.user) return { data: null, isPending: false };
+
   return {
     data: {
       user: {
-        name: user.fullName || user.username || "",
-        email: user.primaryEmailAddress?.emailAddress || "",
-        image: user.imageUrl || ""
-      }
+        name: data.user.name || "",
+        email: data.user.email || "",
+        image: data.user.image || "",
+      },
     },
-    isPending: false
+    isPending: false,
   };
 }
 
+
 export const signOut = async (options) => {
-  if (typeof window !== "undefined" && window.Clerk) {
-    await window.Clerk.signOut();
-    if (options?.fetchOptions?.onSuccess) {
-      options.fetchOptions.onSuccess();
-    }
-  }
+  await authClient.signOut({
+    fetchOptions: {
+      onSuccess: () => {
+
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("auth-token");
+        }
+        options?.fetchOptions?.onSuccess?.();
+      },
+    },
+  });
 };

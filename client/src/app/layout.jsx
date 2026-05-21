@@ -3,7 +3,6 @@ import "./globals.css";
 import Providers from "./Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +20,14 @@ export default function RootLayout({
   children
 }) {
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
-          <Providers>
-            <Navbar />
-            <main className="flex-grow pt-16">{children}</main>
-            <Footer />
-          </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
+        <Providers>
+          <Navbar />
+          <main className="flex-grow pt-16">{children}</main>
+          <Footer />
+        </Providers>
+      </body>
+    </html>
   );
 }

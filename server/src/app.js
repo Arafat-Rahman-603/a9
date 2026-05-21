@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { clerkMiddleware } from '@clerk/express';
 import { makeVerifySession } from './middlewares/verifySession.js';
 import registerRoutes from './routes/index.js';
 import notFound from './middlewares/notFound.js';
@@ -36,7 +35,6 @@ const createApp = () => {
   app.use(cors(corsOptions));
   app.options('/*splat', cors(corsOptions));
 
-  app.use(clerkMiddleware());
   app.use(express.json());
 
   app.get('/', (_req, res) => {
