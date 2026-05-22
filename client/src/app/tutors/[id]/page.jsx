@@ -224,7 +224,7 @@ export default function TutorDetails({ params }) {
                   Your Phone Number
                 </span>
               </label>
-              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="+1 234 567 890" className="input input-bordered w-full" required />
+              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="01580578264" className="input input-bordered w-full" required />
             </div>
 
             <div className="modal-action mt-6">
