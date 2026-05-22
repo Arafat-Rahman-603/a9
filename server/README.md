@@ -47,21 +47,22 @@ mediqueue-server/
 
 Copy `.env.example` to `.env` and fill in your values:
 
-| Variable               | Description                                   |
-|------------------------|-----------------------------------------------|
-| `PORT`                 | Server port (default: `5000`)                 |
-| `MONGODB_URI`          | MongoDB connection string                     |
-| `BETTER_AUTH_SECRET`   | Secret key for session signing                |
-| `BETTER_AUTH_URL`      | Public URL of this server                     |
-| `GOOGLE_CLIENT_ID`     | Google OAuth client ID                        |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret                    |
-| `CLIENT_URL`           | Frontend origin allowed by CORS               |
-
-
+| Variable               | Description                     |
+| ---------------------- | ------------------------------- |
+| `PORT`                 | Server port (default: `5000`)   |
+| `MONGODB_URI`          | MongoDB connection string       |
+| `BETTER_AUTH_SECRET`   | Secret key for session signing  |
+| `BETTER_AUTH_URL`      | Public URL of this server       |
+| `GOOGLE_CLIENT_ID`     | Google OAuth client ID          |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret      |
+| `CLIENT_URL`           | Frontend origin allowed by CORS |
 
 ## Running Locally
 
 ```bash
+# 1. Install dependencies
+# 1. Install dependencies
+# 1. Install dependencies
 # 1. Install dependencies
 npm install
 
@@ -82,13 +83,14 @@ npm start
 
 ### Health Check
 
-| Method | Route | Auth | Description   |
-|--------|-------|------|---------------|
-| GET    | `/`   | —    | Health check  |
+| Method | Route | Auth | Description  |
+| ------ | ----- | ---- | ------------ |
+| GET    | `/`   | —    | Health check |
 
 ### Auth (handled by Better Auth)
 
 All routes under `/api/auth/*` are managed automatically:
+
 - `POST /api/auth/sign-up/email`
 - `POST /api/auth/sign-in/email`
 - `GET  /api/auth/sign-in/google`
@@ -97,22 +99,22 @@ All routes under `/api/auth/*` are managed automatically:
 
 ### Tutors
 
-| Method | Route                  | Auth     | Description                              |
-|--------|------------------------|----------|------------------------------------------|
-| GET    | `/api/tutors`          | Public   | List all tutors (`search`, `startDate`, `endDate`, `limit` query params) |
-| GET    | `/api/tutors/:id`      | Public   | Get a tutor by ID                        |
-| GET    | `/api/tutors/my-tutors`| Required | Get tutors added by the current user     |
-| POST   | `/api/tutors`          | Required | Add a new tutor                          |
-| PUT    | `/api/tutors/:id`      | Required | Update a tutor                           |
-| DELETE | `/api/tutors/:id`      | Required | Delete a tutor                           |
+| Method | Route                   | Auth     | Description                                                              |
+| ------ | ----------------------- | -------- | ------------------------------------------------------------------------ |
+| GET    | `/api/tutors`           | Public   | List all tutors (`search`, `startDate`, `endDate`, `limit` query params) |
+| GET    | `/api/tutors/:id`       | Public   | Get a tutor by ID                                                        |
+| GET    | `/api/tutors/my-tutors` | Required | Get tutors added by the current user                                     |
+| POST   | `/api/tutors`           | Required | Add a new tutor                                                          |
+| PUT    | `/api/tutors/:id`       | Required | Update a tutor                                                           |
+| DELETE | `/api/tutors/:id`       | Required | Delete a tutor                                                           |
 
 ### Bookings
 
-| Method | Route                 | Auth     | Description                                      |
-|--------|-----------------------|----------|--------------------------------------------------|
-| GET    | `/api/bookings`       | Required | Get the current user's bookings                  |
-| POST   | `/api/bookings`       | Required | Book a session (slot check + duplicate check)    |
-| PATCH  | `/api/bookings/:id`   | Required | Cancel a booking (slot is automatically restored)|
+| Method | Route               | Auth     | Description                                       |
+| ------ | ------------------- | -------- | ------------------------------------------------- |
+| GET    | `/api/bookings`     | Required | Get the current user's bookings                   |
+| POST   | `/api/bookings`     | Required | Book a session (slot check + duplicate check)     |
+| PATCH  | `/api/bookings/:id` | Required | Cancel a booking (slot is automatically restored) |
 
 ---
 
@@ -124,11 +126,11 @@ All errors follow a consistent JSON shape:
 { "error": true, "message": "Human-readable description" }
 ```
 
-| Status | When                                    |
-|--------|-----------------------------------------|
-| 400    | Validation error / bad input            |
-| 401    | No active session                       |
-| 403    | Trying to modify another user's data    |
-| 404    | Resource not found / unknown route      |
-| 409    | Duplicate booking conflict              |
-| 500    | Unexpected server error                 |
+| Status | When                                 |
+| ------ | ------------------------------------ |
+| 400    | Validation error / bad input         |
+| 401    | No active session                    |
+| 403    | Trying to modify another user's data |
+| 404    | Resource not found / unknown route   |
+| 409    | Duplicate booking conflict           |
+| 500    | Unexpected server error              |
